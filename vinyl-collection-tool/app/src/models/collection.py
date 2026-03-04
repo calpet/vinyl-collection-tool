@@ -18,6 +18,10 @@ class Collection:
     def sorted_by_artist(self):
         """Returns the albums sorted by artist name."""
         return sorted(self._albums, key=lambda a: a.artist)
+    
+    def sorted_by_title(self):
+        """Returns the albums sorted by title."""
+        return sorted(self._albums, key=lambda a: a.title)
 
     def random(self):
         """Returns a random album from the collection."""
