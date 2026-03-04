@@ -11,11 +11,11 @@ class DiscogsProvider:
         self.client = Client(agent, user_token=api_token)
         self.user = self.client.identity()
 
-    def get_releases(self):
+    def get_releases(self) -> list:
         """Retrieves the releases from the user's collection."""
         return self.user.collection_folders[0].releases
 
-    def get_pages(self):
+    def get_pages(self) -> list:
         """Retrieves all pages of releases from the user's collection."""
         pages = []
         releases = self.get_releases()
