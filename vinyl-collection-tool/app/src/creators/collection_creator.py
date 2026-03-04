@@ -1,7 +1,7 @@
 """Defines the CollectionCreator class responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
-from models.album import Album
-from models.collection import Collection
-from providers.discogs_provider import DiscogsProvider
+from app.src.models.album import Album
+from app.src.models.collection import Collection
+from app.src.providers.discogs_provider import DiscogsProvider
 
 
 class CollectionCreator:
