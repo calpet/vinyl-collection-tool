@@ -56,7 +56,7 @@ class Logger(metaclass=Singleton):
         if not self.logger.handlers:
             handler = logging.StreamHandler()
             formatter = ColoredFormatter(
-                f" {name} [%(levelname)s]: %(message)s"
+                f"{name} [%(levelname)s]: %(message)s"
             )
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
