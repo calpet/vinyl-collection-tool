@@ -9,5 +9,5 @@ if __name__ == "__main__":
     proxy = DiscogsProvider('LPShuffler/0.1', os.getenv("DISCOGS_TOKEN"))
     collection_creator = CollectionCreator(proxy)
     coll = collection_creator.create_collection()
-    random_album = coll.random()
+    random_album = coll.random
     print(f"Random album: {random_album.artist} - {random_album.title}")
