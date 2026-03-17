@@ -1,5 +1,5 @@
 """Defines the CollectionCreator class responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
-from src.utils import logger
+from app.src.utils import logger
 
 from app.src.models.album import Album
 from app.src.models.collection import Collection
