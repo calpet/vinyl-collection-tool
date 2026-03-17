@@ -1,4 +1,6 @@
 """Defines the CollectionCreator class responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
+from src.utils import logger
+
 from app.src.models.album import Album
 from app.src.models.collection import Collection
 from app.src.providers.discogs_provider import DiscogsProvider
@@ -20,6 +22,7 @@ class CollectionCreator:
                 album = Album(title=item.release.title,
                               artist=item.release.artists[0].name,
                               format=item.data["basic_information"]["formats"][0]["name"])
+                logger.debug(f"Created album: {album.artist} - {album.title} ({album.format})")
                 albums.append(album)
         return albums
 
