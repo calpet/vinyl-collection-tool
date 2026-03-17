@@ -1,11 +1,11 @@
 """Defines the CollectionCreator class responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
 from abc import ABC
 
-from app.utils import logger
+from utils import logger
 
-from app.models.album import Album
-from app.models.collection import Collection
-from app.providers.discogs_provider import DiscogsProvider
+from models.album import Album
+from models.collection import Collection
+from providers.discogs_provider import DiscogsProvider
 
 class CollectionCreator(ABC):
     """Abstract class for creating a Collection instance from the data retrieved."""

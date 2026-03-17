@@ -1,7 +1,7 @@
 """Defines the DiscogsProvider class that interacts with the Discogs API to retrieve the user's album collection."""
 
 from discogs_client import Client
-from app.utils import logger
+from utils import logger
 
 
 class DiscogsProvider:
