@@ -1,9 +1,9 @@
 """LPShuffler is a simple application that allows you to shuffle your vinyl collection and discover new albums. It uses the Discogs API to access your collection and provides a random album each time you run it."""
 import os
 
-from app.src.utils import logger
-from app.src.creators.collection_creator import DiscogsCollectionCreator
-from app.src.providers.discogs_provider import DiscogsProvider
+from app.utils import logger
+from app.creators.collection_creator import DiscogsCollectionCreator
+from app.providers.discogs_provider import DiscogsProvider
 
 
 if __name__ == "__main__":
