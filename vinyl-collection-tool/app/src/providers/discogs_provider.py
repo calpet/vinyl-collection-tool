@@ -1,6 +1,7 @@
 """Defines the DiscogsProvider class that interacts with the Discogs API to retrieve the user's album collection."""
 
 from discogs_client import Client
+from app.src.utils import logger
 
 
 class DiscogsProvider:
@@ -17,6 +18,7 @@ class DiscogsProvider:
 
     def get_pages(self) -> list:
         """Retrieves all pages of releases from the user's collection."""
+        logger.debug("Retrieving pages of releases from Discogs...")
         pages = []
         releases = self.get_releases()
         for i in range(releases.pages):

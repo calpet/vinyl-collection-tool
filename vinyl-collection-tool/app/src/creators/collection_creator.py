@@ -1,10 +1,21 @@
 """Defines the CollectionCreator class responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
+from abc import ABC
+
+from app.src.utils import logger
+
 from app.src.models.album import Album
 from app.src.models.collection import Collection
 from app.src.providers.discogs_provider import DiscogsProvider
 
+class CollectionCreator(ABC):
+    """Abstract class for creating a Collection instance from the data retrieved."""
+    
+    def create_collection(self) -> Collection:
+        """Creates and returns a Collection instance containing the albums from the user's collection."""
+        pass
 
-class CollectionCreator:
+
+class DiscogsCollectionCreator(CollectionCreator):
     """Responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
 
     def __init__(self, proxy: DiscogsProvider) -> None:
@@ -20,6 +31,7 @@ class CollectionCreator:
                 album = Album(title=item.release.title,
                               artist=item.release.artists[0].name,
                               format=item.data["basic_information"]["formats"][0]["name"])
+                logger.debug(f"Created album: {album.artist} - {album.title} ({album.format})")
                 albums.append(album)
         return albums
 
