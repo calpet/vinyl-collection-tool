@@ -18,12 +18,31 @@ class Singleton(type):
             instance = super().__call__(*args, **kwargs)
             cls._instances[cls] = instance
         return cls._instances[cls]
+    
+    
+class ColoredFormatter(logging.Formatter):
+    """A formatter that adds color to log messages based on level."""
+
+    COLORS = {
+        'DEBUG': '\033[36m',      # Cyan
+        'INFO': '\033[32m',       # Green
+        'WARNING': '\033[33m',    # Yellow
+        'ERROR': '\033[31m',      # Red
+    }
+    RESET = '\033[0m'
+
+    def format(self, record):
+        """Format the log record with color."""
+        levelname = record.levelname
+        color = self.COLORS.get(levelname, self.RESET)
+        record.levelname = f"{color}{levelname}{self.RESET}"
+        return super().format(record)
 
 
 class Logger(metaclass=Singleton):
     """A custom logger wrapper around Python's logging module."""
 
-    def __init__(self, name: str = "LPShuffler"):
+    def __init__(self, name: str = "vinyl-collection-tool") -> None:
         """
         Initialize the custom logger.
         
@@ -36,8 +55,8 @@ class Logger(metaclass=Singleton):
         # Configure console handler if not already configured
         if not self.logger.handlers:
             handler = logging.StreamHandler()
-            formatter = logging.Formatter(
-                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            formatter = ColoredFormatter(
+                f" {name} [%(levelname)s]: %(message)s"
             )
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
