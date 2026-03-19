@@ -31,7 +31,8 @@ class DiscogsCollectionCreator(CollectionCreator):
             for item in page:
                 album = Album(title=item.release.title,
                               artist=item.release.artists[0].name,
-                              type=item.data["basic_information"]["formats"][0]["name"])
+                              type=item.data["basic_information"]["formats"][0]["name"],
+                              image=item.release.images[0]["uri"])
                 logger.debug(f"Created album: {album.artist} - {album.title} ({album.type})")
                 albums.append(album)
         return Collection(albums)
