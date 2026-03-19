@@ -13,4 +13,4 @@ if __name__ == "__main__":
     random_album = coll.random
     logger.info(f"Random album:\n\
                 {random_album.artist} - {random_album.title}\n\
-                Format: {random_album.format}")
+                Format: {random_album.type}")
