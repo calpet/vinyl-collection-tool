@@ -21,7 +21,6 @@ class DiscogsCollectionCreator(CollectionCreator):
 
     def __init__(self, proxy: DiscogsProvider) -> None:
         """Initializes the CollectionCreator with a DiscogsProvider instance and retrieves the releases and pages."""
-        self._releases = proxy.get_releases()
         self._all_pages = proxy.get_pages()
 
     def create_collection(self) -> Collection:
@@ -29,10 +28,10 @@ class DiscogsCollectionCreator(CollectionCreator):
         albums = []
         for page in self._all_pages:
             for item in page:
-                album = Album(title=item.release.title,
-                              artist=item.release.artists[0].name,
+                album = Album(title=item.data["basic_information"]["title"],
+                              artist=item.data["basic_information"]["artists"][0]["name"],
                               type=item.data["basic_information"]["formats"][0]["name"],
-                              image=item.release.images[0]["uri"])
+                              image=item.data["basic_information"]["cover_image"])
                 logger.debug(f"Created album: {album.artist} - {album.title} ({album.type})")
                 albums.append(album)
         return Collection(albums)

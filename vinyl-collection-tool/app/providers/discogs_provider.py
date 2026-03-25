@@ -21,6 +21,6 @@ class DiscogsProvider:
         logger.debug("Retrieving pages of releases from Discogs...")
         pages = []
         releases = self.get_releases()
-        for i in range(releases.pages):
+        for i in range(releases.pages + 1):
             pages.append(releases.page(i))
         return pages
