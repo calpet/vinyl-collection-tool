@@ -23,9 +23,7 @@ def read_favicon():
 
 @app.get("/random")
 def get_random_album():
-    collection = None
-    if collection is None:
-        collection_creator = CollectionCreator(app.state.proxy)
-        collection = collection_creator.create_collection()
+    collection_creator = CollectionCreator(app.state.proxy)
+    collection = collection_creator.create_collection()
     random_album = collection.random
     return {"album": random_album}
