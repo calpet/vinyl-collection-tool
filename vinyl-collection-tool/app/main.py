@@ -2,13 +2,13 @@
 import os
 
 from app.utils import logger
-from app.creators.collection_creator import DiscogsCollectionCreator
+from app.creators.collection_creator import CollectionCreator
 from app.providers.discogs_provider import DiscogsProvider
 
 
 if __name__ == "__main__":
     proxy = DiscogsProvider('LPShuffler/0.1', os.getenv("DISCOGS_TOKEN"))
-    collection_creator = DiscogsCollectionCreator(proxy)
+    collection_creator = CollectionCreator(proxy)
     coll = collection_creator.create_collection()
     random_album = coll.random
     logger.info(f"Random album:\n\

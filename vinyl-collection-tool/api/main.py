@@ -5,15 +5,13 @@ from http import HTTPStatus
 from fastapi import FastAPI
 import os
 from app.providers.discogs_provider import DiscogsProvider
-from app.creators.collection_creator import DiscogsCollectionCreator
+from app.creators.collection_creator import CollectionCreator
 
 app = FastAPI()
 
 @app.on_event("startup")
 async def startup_event():
-    proxy = DiscogsProvider('LPShuffler/0.1', os.getenv("DISCOGS_TOKEN"))
-    collection_creator = DiscogsCollectionCreator(proxy)
-    app.state.collection = collection_creator.create_collection()
+    app.state.proxy = DiscogsProvider('LPShuffler/0.1', os.getenv("DISCOGS_TOKEN"))
 
 @app.get("/")
 def read_root():
@@ -25,5 +23,9 @@ def read_favicon():
 
 @app.get("/random")
 def get_random_album():
-    random_album = app.state.collection.random
+    collection = None
+    if collection is None:
+        collection_creator = CollectionCreator(app.state.proxy)
+        collection = collection_creator.create_collection()
+    random_album = collection.random
     return {"album": random_album}

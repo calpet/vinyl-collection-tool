@@ -1,5 +1,4 @@
 """Defines the CollectionCreator class responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
-from abc import ABC, abstractmethod
 
 from app.utils import logger
 
@@ -7,26 +6,18 @@ from app.models.album import Album
 from app.models.collection import Collection
 from app.providers.discogs_provider import DiscogsProvider
 
-class CollectionCreator(ABC):
-    """Abstract class for creating a Collection instance from the data retrieved."""
-    
-    @abstractmethod
-    def create_collection(self) -> Collection:
-        """Creates and returns a Collection instance containing the albums from the user's collection."""
-        pass
 
-
-class DiscogsCollectionCreator(CollectionCreator):
-    """Responsible for creating a Collection instance from the data retrieved via the DiscogsProvider."""
+class CollectionCreator:
+    """Responsible for creating a Collection instance from the data retrieved."""
 
     def __init__(self, proxy: DiscogsProvider) -> None:
-        """Initializes the CollectionCreator with a DiscogsProvider instance and retrieves the releases and pages."""
-        self._all_pages = proxy.get_pages()
+        """Initializes the CollectionCreator."""
+        self._proxy = proxy
 
     def create_collection(self) -> Collection:
         """Creates and returns a Collection instance containing the albums from the user's collection."""
         albums = []
-        for page in self._all_pages:
+        for page in self._proxy.pages:
             for item in page:
                 album = Album(title=item.data["basic_information"]["title"],
                               artist=item.data["basic_information"]["artists"][0]["name"],
