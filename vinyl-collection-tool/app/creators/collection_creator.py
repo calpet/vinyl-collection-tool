@@ -18,8 +18,9 @@ class CollectionCreator:
         """Creates and returns a Collection instance containing the albums from the user's collection."""
         albums = set()
         with ThreadPoolExecutor(max_workers=None) as executor:
-            for page in self._proxy.pages:
-                albums.update(executor.submit(self._process_page, page).result())
+            futures = [executor.submit(self._process_page, page) for page in self._proxy.pages]
+            for future in futures:
+                albums.update(future.result())
         return Collection(list(albums))
     
     def _process_page(self, page) -> list[Album]:
