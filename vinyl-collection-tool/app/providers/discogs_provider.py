@@ -1,7 +1,7 @@
 """Defines the DiscogsProvider class that interacts with the Discogs API to retrieve the user's album collection."""
 
 from discogs_client import Client
-from utils import logger
+from app.utils import logger
 
 
 class DiscogsProvider:
@@ -9,18 +9,22 @@ class DiscogsProvider:
 
     def __init__(self, agent, api_token) -> None:
         """Initializes the Discogs client and retrieves the user's identity."""
-        self.client = Client(agent, user_token=api_token)
-        self.user = self.client.identity()
+        self._client = Client(agent, user_token=api_token)
+        self._user = self._client.identity()
+        self._pages = []
 
-    def get_releases(self) -> list:
-        """Retrieves the releases from the user's collection."""
-        return self.user.collection_folders[0].releases
+    @property
+    def pages(self) -> list:
+        """Retrieves all pages of releases from the user's collection."""
+        if len(self._pages) == 0:
+            self._pages = self._load_pages()
+        return self._pages
 
-    def get_pages(self) -> list:
+    def _load_pages(self) -> list:
         """Retrieves all pages of releases from the user's collection."""
         logger.debug("Retrieving pages of releases from Discogs...")
         pages = []
-        releases = self.get_releases()
+        releases = self._user.collection_folders[0].releases
         for i in range(releases.pages):
             pages.append(releases.page(i))
         return pages

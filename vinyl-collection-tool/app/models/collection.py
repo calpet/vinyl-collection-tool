@@ -2,7 +2,7 @@
 
 import random
 
-from models.album import Album
+from app.models.album import Album
 
 
 class Collection:
