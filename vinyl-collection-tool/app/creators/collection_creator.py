@@ -10,9 +10,9 @@ from app.providers.discogs_provider import DiscogsProvider
 class CollectionCreator:
     """Responsible for creating a Collection instance from the data retrieved."""
 
-    def __init__(self, proxy: DiscogsProvider) -> None:
+    def __init__(self) -> None:
         """Initializes the CollectionCreator."""
-        self._proxy = proxy
+        self._proxy = DiscogsProvider()
 
     def create_collection(self) -> Collection:
         """Creates and returns a Collection instance containing the albums from the user's collection."""

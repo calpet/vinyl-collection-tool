@@ -2,12 +2,13 @@
 
 from discogs_client import Client
 from app.utils import logger
+from app.utils.singleton import Singleton
 
 
-class DiscogsProvider:
+class DiscogsProvider(metaclass=Singleton):
     """Acts as a proxy to the Discogs API, handling authentication and data retrieval."""
 
-    def __init__(self, agent, api_token) -> None:
+    def __init__(self, agent=None, api_token=None) -> None:
         """Initializes the Discogs client and retrieves the user's identity."""
         self._client = Client(agent, user_token=api_token)
         self._user = self._client.identity()

@@ -5,10 +5,10 @@ from fastapi import APIRouter
 from app.providers.discogs_provider import DiscogsProvider
 from app.creators.collection_creator import CollectionCreator
 
-router = APIRouter(prefix="/collection", tags=["collection"])
+router = APIRouter(prefix="/collections", tags=["collections"])
 
 _discogs_provider = DiscogsProvider(agent="LPShuffler/1.0", api_token=os.getenv("DISCOGS_TOKEN"))
-_collection_creator = CollectionCreator(_discogs_provider)
+_collection_creator = CollectionCreator()
 _collection = _collection_creator.create_collection()
 
 # Routes

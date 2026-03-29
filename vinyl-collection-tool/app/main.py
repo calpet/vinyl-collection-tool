@@ -8,7 +8,7 @@ from app.providers.discogs_provider import DiscogsProvider
 
 if __name__ == "__main__":
     proxy = DiscogsProvider('LPShuffler/0.1', os.getenv("DISCOGS_TOKEN"))
-    collection_creator = CollectionCreator(proxy)
+    collection_creator = CollectionCreator()
     coll = collection_creator.create_collection()
     random_album = coll.random
     logger.info(f"Random album:\n\
