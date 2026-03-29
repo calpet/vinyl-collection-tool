@@ -1,7 +1,6 @@
 """Main API entry point for the vinyl collection tool."""
 
 from http import HTTPStatus
-
 from fastapi import FastAPI
 
 from api.controllers import routers

@@ -8,7 +8,7 @@ from app.utils.singleton import Singleton
 class DiscogsProvider(metaclass=Singleton):
     """Acts as a proxy to the Discogs API, handling authentication and data retrieval."""
 
-    def __init__(self, agent=None, api_token=None) -> None:
+    def __init__(self, agent, api_token) -> None:
         """Initializes the Discogs client and retrieves the user's identity."""
         self._client = Client(agent, user_token=api_token)
         self._user = self._client.identity()

@@ -3,16 +3,15 @@
 import os
 from fastapi import APIRouter
 from app.providers.discogs_provider import DiscogsProvider
-from app.creators.collection_creator import CollectionCreator
+from app.sessions.session import MusicSession
 
 router = APIRouter(prefix="/collections", tags=["collections"])
 
-_discogs_provider = DiscogsProvider(agent="LPShuffler/1.0", api_token=os.getenv("DISCOGS_TOKEN"))
-_collection_creator = CollectionCreator()
-_collection = _collection_creator.create_collection()
+_proxy = DiscogsProvider(agent="LPShuffler/1.0", api_token=os.getenv("DISCOGS_TOKEN"))
+_music_session = MusicSession()
 
 # Routes
 @router.get("/random")
 def get_random_album():
     """Returns a random album from the user's collection."""
-    return _collection.random
+    return _music_session.get_random_album()
