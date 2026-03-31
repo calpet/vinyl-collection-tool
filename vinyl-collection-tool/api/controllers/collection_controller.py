@@ -14,4 +14,4 @@ _music_session = MusicSession()
 @router.get("/random")
 def get_random_album():
     """Returns a random album from the user's collection."""
-    return _music_session.get_random_album()
+    return _music_session.random_album()
