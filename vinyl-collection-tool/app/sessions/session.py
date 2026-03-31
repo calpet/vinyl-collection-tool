@@ -6,13 +6,17 @@ from app.utils import logger
 from app.strategies.random_picker import RandomAlbum
 
 
-class MusicSession:
-    """Class for handling music sessions."""
+class PlaybackOrchestrator:
+    """Class for handling playback orchestration."""
 
     def __init__(self) -> None:
-        """Initializes the MusicSession."""
+        """Initializes the PlaybackOrchestrator."""
         self._collection: Collection = CollectionCreator().create_collection()
         self._played_albums: set[Album] = set()
+        
+    def clear(self) -> None:
+        """Clears the played albums set."""
+        self._played_albums.clear()
         
     def random_album(self) -> Album:
         """Returns a random album from the collection."""
@@ -23,5 +27,5 @@ class MusicSession:
             return self.random_album()
 
         self._played_albums.add(album)
-        logger.info(f"Added album: {album.title} by {album.artist} to the collection.")
+        logger.info(f"Enqueuing album: {album.title} by {album.artist}.")
         return album
