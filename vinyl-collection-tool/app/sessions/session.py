@@ -3,7 +3,6 @@ from app.models.collection import Collection
 from app.creators.collection_creator import CollectionCreator
 from app.models.album import Album
 from app.utils import logger
-from app.strategies.random_picker import RandomAlbum
 
 
 class PlaybackOrchestrator:
@@ -20,12 +19,11 @@ class PlaybackOrchestrator:
         
     def random_album(self) -> Album:
         """Returns a random album from the collection."""
-        rand = RandomAlbum(self._collection)
-        album = rand.pick_album()
+        album = self._collection.random
         if album in self._played_albums:
             logger.info(f"Album: {album.title} by {album.artist} has already been played. Skipping.")
             return self.random_album()
 
         self._played_albums.add(album)
-        logger.info(f"Enqueuing album: {album.title} by {album.artist}.")
+        logger.info(f"Random album selected: {album.artist} - {album.title}.")
         return album
