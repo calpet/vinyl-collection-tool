@@ -1,6 +1,5 @@
 """Defines the DiscogsProvider class that interacts with the Discogs API to retrieve the user's album collection."""
 
-from multiprocessing import AuthenticationError
 from typing import ClassVar
 
 from discogs_client import Client
