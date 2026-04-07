@@ -10,17 +10,20 @@ from app.providers.discogs_provider import DiscogsProvider
 class CollectionCreator:
     """Responsible for creating a Collection instance from the data retrieved."""
 
-    def __init__(self, proxy: DiscogsProvider) -> None:
+    def __init__(self) -> None:
         """Initializes the CollectionCreator."""
-        self._proxy = proxy
 
-    def create_collection(self) -> Collection:
-        """Creates and returns a Collection instance containing the albums from the user's collection."""
+    def create_collection(self, username: str) -> Collection:
+        """Creates and returns a Collection instance containing the albums from the user's collection.
+        
+        :param username: The username whose collection is to be retrieved."""
         albums = set()
+        proxy = DiscogsProvider(username)
         with ThreadPoolExecutor(max_workers=None) as executor:
-            futures = [executor.submit(self._process_page, page) for page in self._proxy.pages]
+            futures = [executor.submit(self._process_page, page) for page in proxy.pages]
             for future in futures:
                 albums.update(future.result())
+
         return Collection(list(albums))
     
     def _process_page(self, page) -> list[Album]:
@@ -33,5 +36,6 @@ class CollectionCreator:
                             type=AlbumType(album_type_str),
                             image=item.data["basic_information"]["cover_image"])
             albums.append(album)
+
         return albums
         
