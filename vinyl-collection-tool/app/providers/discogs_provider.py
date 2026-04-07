@@ -10,7 +10,7 @@ from app.utils import logger
 class DiscogsProvider:
     """Acts as a proxy to the Discogs API, handling authentication and data retrieval."""
     
-    _AGENT = ClassVar[str]("LPShuffler/1.0")
+    _AGENT: ClassVar[str] = "LPShuffler/1.0"
 
     def __init__(self, username: str) -> None:
         """Initializes the Discogs client and retrieves the user's identity."""
