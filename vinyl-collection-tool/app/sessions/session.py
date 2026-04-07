@@ -5,12 +5,12 @@ from app.models.album import Album
 from app.utils import logger
 
 
-class PlaybackOrchestrator:
-    """Class for handling playback orchestration."""
+class MusicSession:
+    """Class for handling music sessions."""
 
-    def __init__(self) -> None:
-        """Initializes the PlaybackOrchestrator."""
-        self._collection: Collection = CollectionCreator().create_collection()
+    def __init__(self, username: str) -> None:
+        """Initializes the MusicSession."""
+        self._collection: Collection = CollectionCreator().create_collection(username)
         self._played_albums: set[Album] = set()
         
     def clear(self) -> None:
