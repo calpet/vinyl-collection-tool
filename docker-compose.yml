@@ -4,9 +4,8 @@ services:
   app:
     build: .
     container_name: vinyl_app
-    command: python -m vinyl_collection_tool.api.main
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
     ports:
       - "8000:8000"
     depends_on:
