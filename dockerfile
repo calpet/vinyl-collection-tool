@@ -24,4 +24,4 @@ COPY . .
 EXPOSE 8000
 
 # Run the app (adjust path if needed)
-CMD ["uv", "run", "uvicorn", "vinyl-collection-tool.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "vinyl_collection_tool.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

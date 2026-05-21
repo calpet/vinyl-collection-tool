@@ -4,7 +4,7 @@ services:
   app:
     build: .
     container_name: vinyl_app
-    command: python -m vinyl-collection-tool.api.main
+    command: python -m vinyl_collection_tool.api.main
     volumes:
       - .:/app
     ports:
