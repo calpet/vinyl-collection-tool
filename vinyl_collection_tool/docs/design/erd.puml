@@ -1,0 +1,83 @@
+@startuml
+' Entities
+entity "album" as album {
+    *id : int
+    name : string
+    image : string
+    release_year : int
+    format : string
+}
+
+entity "genre" as genre {
+    *id : int
+    name : string
+}
+
+entity "style" as style {
+    *id : int
+    name : string
+}
+
+entity "collection" as collection {
+    *id : int
+    platform : string
+}
+
+entity "artist" as artist {
+    *id : int
+    name : string
+}
+
+entity "user" as user {
+    *id : int
+    name : string
+}
+
+' Junction tables
+entity "album_genre" as album_genre {
+    *id : int
+    album_id : int
+    genre_id : int
+}
+
+entity "album_style" as album_style {
+    *id : int
+    album_id : int
+    style_id : int
+}
+
+entity "album_artist" as album_artist {
+    *id : int
+    album_id : int
+    artist_id : int
+}
+
+entity "album_in_collection" as album_in_collection {
+    *id : int
+    album_id : int
+    collection_id : int
+}
+
+entity "collection_owner" as collection_owner {
+    *id : int
+    collection_id : int
+    user_id : int
+}
+
+' Relationships
+album_genre }o--|| album : "album_id"
+album_genre }o--|| genre : "genre_id"
+
+album_style }o--|| album : "album_id"
+album_style }o--|| style : "style_id"
+
+album_artist }o--|| album : "album_id"
+album_artist }o--|| artist : "artist_id"
+
+album_in_collection }o--|| album : "album_id"
+album_in_collection }o--|| collection : "collection_id"
+
+collection_owner }o--|| collection : "collection_id"
+collection_owner }o--|| user : "user_id"
+
+@enduml
