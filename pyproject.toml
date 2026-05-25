@@ -1,5 +1,5 @@
 [project]
-name = "vinyl-collection-tool"
+name = "vinyl_collection_tool"
 version = "0.1.0"
 description = "A tool for enhancing your vinyl listening experience."
 readme = "README.md"

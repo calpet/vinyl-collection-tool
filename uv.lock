@@ -294,7 +294,7 @@ wheels = [
 ]
 
 [[package]]
-name = "vinyl-collection-tool"
+name = "vinyl_collection_tool"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

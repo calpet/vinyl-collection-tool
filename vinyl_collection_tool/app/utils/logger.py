@@ -26,7 +26,7 @@ class ColoredFormatter(logging.Formatter):
 class Logger(metaclass=Singleton):
     """A custom logger wrapper around Python's logging module."""
 
-    def __init__(self, name: str = "vinyl-collection-tool") -> None:
+    def __init__(self, name: str = "vinyl_collection_tool") -> None:
         """
         Initialize the custom logger.
         
