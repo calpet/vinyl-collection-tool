@@ -12,12 +12,22 @@ class AlbumType(Enum):
 class Album:
     """Represents an album in the collection."""
 
-    def __init__(self, title: str, artist: str, type: AlbumType, image: str) -> None:
+    def __init__(self, 
+                 title: str, 
+                 artist: str, 
+                 type: AlbumType, 
+                 image: str, 
+                 year: int, 
+                 genres: list, 
+                 styles: list) -> None:
         """Initializes an Album instance."""
         self.title = title
         self.artist = artist
         self.type = type
         self.image = image
+        self.year = year
+        self.genres = genres
+        self.styles = styles
         
     def __eq__(self, other) -> bool:
         if not isinstance(other, Album):

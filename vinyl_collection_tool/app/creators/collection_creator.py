@@ -34,7 +34,10 @@ class CollectionCreator:
             album = Album(title=item.data["basic_information"]["title"],
                             artist=item.data["basic_information"]["artists"][0]["name"],
                             type=AlbumType(album_type_str),
-                            image=item.data["basic_information"]["cover_image"])
+                            image=item.data["basic_information"]["cover_image"],
+                            year=item.data["basic_information"]["year"],
+                            genres=item.data["basic_information"]["genres"],
+                            styles=item.data["basic_information"]["styles"])
             albums.append(album)
 
         return albums
