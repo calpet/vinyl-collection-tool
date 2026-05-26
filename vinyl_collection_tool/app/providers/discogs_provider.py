@@ -8,7 +8,7 @@ from app.utils import logger
 
 class DiscogsProvider:
     """Acts as a proxy to the Discogs API, handling authentication and data retrieval."""
-    
+
     _AGENT: ClassVar[str] = "LPShuffler/1.0"
 
     def __init__(self, username: str) -> None:
@@ -16,7 +16,7 @@ class DiscogsProvider:
         self._client = Client(self._AGENT, user_token=None)
         self._user = self._client.user(username)
         self._pages = self._load_pages()
-        
+
     @property
     def pages(self) -> list:
         """Retrieves all pages of releases from the user's collection."""

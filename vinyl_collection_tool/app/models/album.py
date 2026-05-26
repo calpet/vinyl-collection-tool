@@ -5,21 +5,25 @@ from enum import Enum
 
 class AlbumType(Enum):
     """Enumeration of possible album types."""
+
     NONE = "NONE"
     VINYL = "VINYL"
     CD = "CD"
 
+
 class Album:
     """Represents an album in the collection."""
 
-    def __init__(self, 
-                 title: str, 
-                 artist: str, 
-                 type: AlbumType, 
-                 image: str, 
-                 year: int, 
-                 genres: list, 
-                 styles: list) -> None:
+    def __init__(
+        self,
+        title: str,
+        artist: str,
+        type: AlbumType,
+        image: str,
+        year: int,
+        genres: list,
+        styles: list,
+    ) -> None:
         """Initializes an Album instance."""
         self.title = title
         self.artist = artist
@@ -28,14 +32,14 @@ class Album:
         self.year = year
         self.genres = genres
         self.styles = styles
-        
+
     def __eq__(self, other) -> bool:
         if not isinstance(other, Album):
             return False
         return (
-            self.title == other.title and
-            self.artist == other.artist and
-            self.type == other.type
+            self.title == other.title
+            and self.artist == other.artist
+            and self.type == other.type
         )
 
     def __hash__(self) -> int:

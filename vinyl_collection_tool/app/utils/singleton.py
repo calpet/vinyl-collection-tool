@@ -1,5 +1,6 @@
 """Singleton baseclass"""
 
+
 class Singleton(type):
     """
     A metaclass for creating singleton classes.

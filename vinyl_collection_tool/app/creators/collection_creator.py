@@ -15,30 +15,37 @@ class CollectionCreator:
 
     def create_collection(self, username: str) -> Collection:
         """Creates and returns a Collection instance containing the albums from the user's collection.
-        
+
         :param username: The username whose collection is to be retrieved."""
         albums = set()
         proxy = DiscogsProvider(username)
         with ThreadPoolExecutor(max_workers=None) as executor:
-            futures = [executor.submit(self._process_page, page) for page in proxy.pages]
+            futures = [
+                executor.submit(self._process_page, page) for page in proxy.pages
+            ]
             for future in futures:
                 albums.update(future.result())
 
         return Collection(list(albums))
-    
+
     def _process_page(self, page) -> list[Album]:
         """Processes the pages retrieved from the API, dedplicating albums and returning a list of unique albums."""
         albums = []
         for item in page:
-            album_type_str = str(item.data["basic_information"]["formats"][0]["name"]).strip().upper()
-            album = Album(title=item.data["basic_information"]["title"],
-                            artist=item.data["basic_information"]["artists"][0]["name"],
-                            type=AlbumType(album_type_str),
-                            image=item.data["basic_information"]["cover_image"],
-                            year=item.data["basic_information"]["year"],
-                            genres=item.data["basic_information"]["genres"],
-                            styles=item.data["basic_information"]["styles"])
+            album_type_str = (
+                str(item.data["basic_information"]["formats"][0]["name"])
+                .strip()
+                .upper()
+            )
+            album = Album(
+                title=item.data["basic_information"]["title"],
+                artist=item.data["basic_information"]["artists"][0]["name"],
+                type=AlbumType(album_type_str),
+                image=item.data["basic_information"]["cover_image"],
+                year=item.data["basic_information"]["year"],
+                genres=item.data["basic_information"]["genres"],
+                styles=item.data["basic_information"]["styles"],
+            )
             albums.append(album)
 
         return albums
-        

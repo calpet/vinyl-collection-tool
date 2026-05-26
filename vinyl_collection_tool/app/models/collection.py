@@ -16,7 +16,7 @@ class Collection:
     def albums(self) -> list[Album]:
         """Returns the list of albums in the collection."""
         return self._albums
-    
+
     @property
     def random(self) -> Album:
         """Returns a random album from the collection."""
@@ -25,7 +25,7 @@ class Collection:
     def sorted_by_artist(self) -> list[Album]:
         """Returns the albums sorted by artist name."""
         return sorted(self._albums, key=lambda a: a.artist)
-    
+
     def sorted_by_title(self) -> list[Album]:
         """Returns the albums sorted by title."""
         return sorted(self._albums, key=lambda a: a.title)
