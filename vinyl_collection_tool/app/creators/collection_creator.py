@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from app.models.album import Album, AlbumType
 from app.models.collection import Collection
 from app.providers.discogs_provider import DiscogsProvider
+from app.db.repositories import CollectionRepository
 
 
 class CollectionCreator:
@@ -12,6 +13,7 @@ class CollectionCreator:
 
     def __init__(self) -> None:
         """Initializes the CollectionCreator."""
+        self.collection_repository = CollectionRepository()
 
     def create_collection(self, username: str) -> Collection:
         """Creates and returns a Collection instance containing the albums from the user's collection.
@@ -26,7 +28,9 @@ class CollectionCreator:
             for future in futures:
                 albums.update(future.result())
 
-        return Collection(list(albums))
+        collection = Collection(list(albums))
+        self.collection_repository.save_collection(collection)
+        return collection
 
     def _process_page(self, page) -> list[Album]:
         """Processes the pages retrieved from the API, dedplicating albums and returning a list of unique albums."""

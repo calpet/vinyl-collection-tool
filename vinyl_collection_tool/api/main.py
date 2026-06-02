@@ -6,7 +6,12 @@ from api.controllers import routers
 from app.db.database import init_db
 
 
-app = FastAPI(on_event={"startup": init_db()})
+app = FastAPI()
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    init_db()
 
 for router in routers:
     app.include_router(router)

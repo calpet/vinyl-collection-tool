@@ -1,23 +1,30 @@
 """Conversion utilities between API models and SQLModel ORM entities."""
 
-from typing import List
-from vinyl_collection_tool.app.models.album import Album as ApiAlbum, AlbumType
-from vinyl_collection_tool.app.db.entities import Album, Genre, Style, Artist
+from typing import List, Optional
+from app.models.album import Album as ApiAlbum, AlbumType
+from app.db.entities import Album, Genre, Style, Artist
 
 # API Album -> DB Album
 
 
 def api_album_to_db(
-    api_album: ApiAlbum, genres: List[Genre], styles: List[Style], artists: List[Artist]
+    api_album: ApiAlbum,
+    genres: Optional[List[Genre]] = None,
+    styles: Optional[List[Style]] = None,
+    artists: Optional[List[Artist]] = None,
 ) -> Album:
+    converted_genres = genres if genres is not None else [Genre(name=genre) for genre in api_album.genres]
+    converted_styles = styles if styles is not None else [Style(name=style) for style in api_album.styles]
+    converted_artists = artists if artists is not None else [Artist(name=api_album.artist)] if api_album.artist else []
+
     return Album(
         name=api_album.title,
         image=api_album.image,
         release_year=api_album.year,
         format=api_album.type.value,
-        genres=genres,
-        styles=styles,
-        artists=artists,
+        genres=converted_genres,
+        styles=converted_styles,
+        artists=converted_artists,
     )
 
 
