@@ -1,11 +1,12 @@
 """Main API entry point for the vinyl collection tool."""
-
 from http import HTTPStatus
 from fastapi import FastAPI
 
 from api.controllers import routers
+from app.db.database import init_db
 
-app = FastAPI()
+
+app = FastAPI(on_event={"startup": init_db()})
 
 for router in routers:
     app.include_router(router)

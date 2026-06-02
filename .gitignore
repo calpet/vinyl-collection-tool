@@ -173,6 +173,10 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+# databases
+*.db
+*.sqlite
+
 #VS Code
 .vscode/
 
