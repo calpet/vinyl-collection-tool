@@ -33,6 +33,13 @@ entity "user" as user {
     name : string
 }
 
+entity "vector_schema" as vector_schema {
+    *id : int
+    style_weight: int
+    genre_weight: int
+    release_year_weight: int
+}
+
 ' Junction tables
 entity "album_genre" as album_genre {
     *id : int
@@ -64,6 +71,12 @@ entity "collection_owner" as collection_owner {
     user_id : int
 }
 
+entity "album_vector" as album_vector {
+    *id : int
+    album_id : int
+    vector : float[]
+}
+
 ' Relationships
 album_genre }o--|| album : "album_id"
 album_genre }o--|| genre : "genre_id"
@@ -79,5 +92,8 @@ album_in_collection }o--|| collection : "collection_id"
 
 collection_owner }o--|| collection : "collection_id"
 collection_owner }o--|| user : "user_id"
+
+album ||--o{ album_vector
+vector_schema ||--o{ album_vector
 
 @enduml
