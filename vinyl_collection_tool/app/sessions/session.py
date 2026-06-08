@@ -1,7 +1,7 @@
 """Class for handling sessions."""
 
 from app.models.collection import Collection
-from app.creators.collection_creator import CollectionCreator
+from app.core.collection_importer import CollectionImporter
 from app.models.album import Album
 from app.utils import logger
 
@@ -11,7 +11,7 @@ class MusicSession:
 
     def __init__(self, username: str) -> None:
         """Initializes the MusicSession."""
-        self._collection: Collection = CollectionCreator().create_collection(username)
+        self._collection: Collection = CollectionImporter().import_collection(username)
         self._played_albums: set[Album] = set()
 
     def clear(self) -> None:

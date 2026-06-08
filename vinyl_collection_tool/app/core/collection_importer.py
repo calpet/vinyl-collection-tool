@@ -8,16 +8,16 @@ from app.providers.discogs_provider import DiscogsProvider
 from app.db.repositories import CollectionRepository
 
 
-class CollectionCreator:
-    """Responsible for creating a Collection instance from the data retrieved."""
+class CollectionImporter:
+    """Responsible for importing a Collection from the data retrieved."""
 
     def __init__(self) -> None:
-        """Initializes the CollectionCreator."""
+        """Initializes the CollectionImporter."""
         self.collection_repository = CollectionRepository()
 
-    def create_collection(self, username: str) -> Collection:
-        """Creates and returns a Collection instance containing the albums from the user's collection.
-
+    def import_collection(self, username: str) -> Collection:
+        """Imports and returns a Collection instance containing the albums 
+        from the user's collection.
         :param username: The username whose collection is to be retrieved."""
         albums = set()
         proxy = DiscogsProvider(username)

@@ -3,7 +3,7 @@
 import argparse
 
 from app.utils import logger
-from app.creators.collection_creator import CollectionCreator
+from app.core.collection_importer import CollectionImporter
 
 subparser = argparse.ArgumentParser(description="vinyl collection shuffler")
 subparser.add_argument(
@@ -16,8 +16,8 @@ subparser.add_argument(
 
 if __name__ == "__main__":
     args = subparser.parse_args()
-    collection_creator = CollectionCreator()
-    coll = collection_creator.create_collection(args.username)
+    collection_importer = CollectionImporter()
+    coll = collection_importer.import_collection(args.username)
     random_album = coll.random
     logger.info(
         f"Random album:\n\

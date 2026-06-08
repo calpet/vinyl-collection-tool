@@ -78,16 +78,16 @@ class VectorSchema(SQLModel, table=True):
     style_weight: Optional[int] = None
     genre_weight: Optional[int] = None
     release_year_weight: Optional[int] = None
-    album_vectors: List["AlbumVector"] = Relationship(back_populates="vector_schema")
+    album_vectors: List["AlbumVector"] = Relationship(back_populates="vectorschema")
 
 
 class AlbumVector(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     album_id: Optional[int] = Field(default=None, foreign_key="album.id")
-    vector_schema_id: Optional[int] = Field(default=None, foreign_key="vector_schema.id")
+    vector_schema_id: Optional[int] = Field(default=None, foreign_key="vectorschema.id")
     vector: Optional[List[float]] = Field(default=None, sa_column=Column(JSON))
     album: Optional["Album"] = Relationship(back_populates="vectors")
-    vector_schema: Optional["VectorSchema"] = Relationship(back_populates="album_vectors")
+    vector_schema: Optional["VectorSchema"] = Relationship(back_populates="albumvectors")
 
 
 class Genre(SQLModel, table=True):
